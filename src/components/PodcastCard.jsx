@@ -1,16 +1,12 @@
 import React, { useState, useRef } from 'react';
 import styled from "styled-components";
-import HeadphonesIcon from "@mui/icons-material/Headphones";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import logopodcast from '../images/logopodcast.jpg';
 
-// ELIMINA esta importación (ya que el archivo está en public/)
-// import podcastAudio from 'podcast.mp3';
-
-// En su lugar, define la URL del audio
 const podcastAudioUrl = process.env.PUBLIC_URL + '/podcast.mp3';
 
+// STYLED COMPONENTS DEL PODCAST PRINCIPAL
 const PlayIcon = styled.div`
   padding: 16px;
   border-radius: 50%;
@@ -21,7 +17,6 @@ const PlayIcon = styled.div`
   background: rgb(228,155,15);
   color: white !important;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   position: absolute !important;
   top: 50%;
   right: 10%;
@@ -39,20 +34,17 @@ const PlayIcon = styled.div`
 
 const Card = styled.div`
   position: relative;
-  text-decoration: none;
   background-color: ${({ theme }) => theme.card};
   width: 100%;
   max-width: 800px;
-  height: auto;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 16px 0 rgba(0,0,0,0.1);
-  transition: all 0.4s ease-in-out;
   margin: 20px auto;
+  transition: all 0.4s ease-in-out;
   
   &:hover {
     cursor: pointer;
@@ -67,7 +59,6 @@ const CardImage = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 10px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.3);
   margin-right: 20px;
 `;
 
@@ -75,7 +66,6 @@ const CardInformation = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-weight: 450;
   width: 100%;
 `;
 
@@ -135,6 +125,45 @@ const TimeDisplay = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.text_secondary};
   margin-top: 5px;
+`;
+
+// NUEVOS STYLES PARA LOS CARDS INFORMATIVOS
+const InfoCardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 800px;
+  margin: 20px auto;
+
+  @media(min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+const InfoCard = styled.div`
+  background-color: ${({ theme }) => theme.card};
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+`;
+
+const InfoCardTitle = styled.div`
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+`;
+
+const InfoCardList = styled.ul`
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: ${({ theme }) => theme.text_secondary};
 `;
 
 const PodcastCard = () => {
@@ -197,53 +226,57 @@ const PodcastCard = () => {
   };
 
   return (
-    <Card>
-      <CardImage src={logopodcast} alt="Arquitecturas Móviles"/>
-      <CardInformation>
-        <Title>Arquitecturas de Aplicaciones Móviles</Title>
-        <Description>
-          Un análisis profundo de las principales arquitecturas utilizadas en el desarrollo de aplicaciones móviles, 
-          incluyendo MVC, MVP, MVVM y Clean Architecture. Este podcast explora sus ventajas, desventajas y casos de uso apropiados.
-        </Description>
-        
-        {/* Enlace de descarga */}
-        <div style={{ marginBottom: '10px', fontSize: '14px' }}>
-          <DownloadLink 
-            href={podcastAudioUrl} 
-            download="arquitecturas-moviles-podcast.mp3"
-          >
-            📥 Descargar podcast MP3
-          </DownloadLink>
-        </div>
+    <>
+      {/* PODCAST PRINCIPAL */}
+      <Card>
+        <CardImage src={logopodcast} alt="Arquitecturas Móviles"/>
+        <CardInformation>
+          <Title>Arquitecturas de Aplicaciones Móviles</Title>
+          <Description>
+            Un análisis profundo de las principales arquitecturas utilizadas en el desarrollo de aplicaciones móviles, 
+            incluyendo MVC, MVP, MVVM y Clean Architecture. Este podcast explora sus ventajas, desventajas y casos de uso apropiados.
+          </Description>
 
-        <AudioPlayer 
-          ref={audioRef}
-          onTimeUpdate={handleTimeUpdate}
-          onLoadedMetadata={handleLoadedMetadata}
-          onEnded={handleEnded}
-          controls
-        >
-          <source src={podcastAudioUrl} type="audio/mpeg" />
-          Tu navegador no soporta el elemento de audio.
-        </AudioPlayer>
+          <div style={{ marginBottom: '10px', fontSize: '14px' }}>
+            <DownloadLink 
+              href={podcastAudioUrl} 
+              download="arquitecturas-moviles-podcast.mp3"
+            >
+              📥 Descargar podcast MP3
+            </DownloadLink>
+          </div>
+
+          <AudioPlayer 
+            ref={audioRef}
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            onEnded={handleEnded}
+            controls
+          >
+            <source src={podcastAudioUrl} type="audio/mpeg" />
+            Tu navegador no soporta el elemento de audio.
+          </AudioPlayer>
+          
+          <ProgressContainer onClick={handleProgressClick}>
+            <ProgressBar progress={progress} />
+          </ProgressContainer>
+          
+          <TimeDisplay>
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </TimeDisplay>
+        </CardInformation>
         
-        <ProgressContainer onClick={handleProgressClick}>
-          <ProgressBar progress={progress} />
-        </ProgressContainer>
-        
-        <TimeDisplay>
-          <span>{formatTime(currentTime)}</span>
-          <span>{formatTime(duration)}</span>
-        </TimeDisplay>
-      </CardInformation>
-      
-      <PlayIcon isPlaying={isPlaying} onClick={togglePlayPause}>
-        {isPlaying ? 
-          <PauseIcon style={{ width: "28px", height: "28px" }}/> : 
-          <PlayArrowIcon style={{ width: "28px", height: "28px" }}/>
-        }
-      </PlayIcon>
-    </Card>
+        <PlayIcon isPlaying={isPlaying} onClick={togglePlayPause}>
+          {isPlaying ? 
+            <PauseIcon style={{ width: "28px", height: "28px" }}/> : 
+            <PlayArrowIcon style={{ width: "28px", height: "28px" }}/>
+          }
+        </PlayIcon>
+      </Card>
+
+
+    </>
   )
 }
 
