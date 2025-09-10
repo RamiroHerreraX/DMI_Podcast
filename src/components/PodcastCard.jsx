@@ -4,7 +4,12 @@ import HeadphonesIcon from "@mui/icons-material/Headphones";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import logopodcast from '../images/logopodcast.jpg';
-import podcastAudio from '../images/podcast.mp3'; // Importar el archivo de audio
+
+// ELIMINA esta importación (ya que el archivo está en public/)
+// import podcastAudio from 'podcast.mp3';
+
+// En su lugar, define la URL del audio
+const podcastAudioUrl = process.env.PUBLIC_URL + '/podcast.mp3';
 
 const PlayIcon = styled.div`
   padding: 16px;
@@ -204,7 +209,7 @@ const PodcastCard = () => {
         {/* Enlace de descarga */}
         <div style={{ marginBottom: '10px', fontSize: '14px' }}>
           <DownloadLink 
-            href={podcastAudio} 
+            href={podcastAudioUrl} 
             download="arquitecturas-moviles-podcast.mp3"
           >
             📥 Descargar podcast MP3
@@ -218,7 +223,7 @@ const PodcastCard = () => {
           onEnded={handleEnded}
           controls
         >
-          <source src={podcastAudio} type="audio/mpeg" />
+          <source src={podcastAudioUrl} type="audio/mpeg" />
           Tu navegador no soporta el elemento de audio.
         </AudioPlayer>
         
