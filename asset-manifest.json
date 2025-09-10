@@ -1,8 +1,7 @@
 {
   "files": {
     "main.css": "/DMI_Podcast/static/css/main.e6c13ad2.css",
-    "main.js": "/DMI_Podcast/static/js/main.decdc54f.js",
-    "static/media/podcast.mp3": "/DMI_Podcast/static/media/podcast.f147b70b184701824275.mp3",
+    "main.js": "/DMI_Podcast/static/js/main.cd56621d.js",
     "static/media/logopodcast.jpg": "/DMI_Podcast/static/media/logopodcast.5372a8d164c4e96b3e97.jpg",
     "static/media/clean.jpg": "/DMI_Podcast/static/media/clean.0b00075a3035b7729fda.jpg",
     "static/media/mvvm.jpg": "/DMI_Podcast/static/media/mvvm.60f1a5af3aaee96d8142.jpg",
@@ -10,10 +9,10 @@
     "static/media/mvc.jpg": "/DMI_Podcast/static/media/mvc.1ec0b353626f3b478bfc.jpg",
     "index.html": "/DMI_Podcast/index.html",
     "main.e6c13ad2.css.map": "/DMI_Podcast/static/css/main.e6c13ad2.css.map",
-    "main.decdc54f.js.map": "/DMI_Podcast/static/js/main.decdc54f.js.map"
+    "main.cd56621d.js.map": "/DMI_Podcast/static/js/main.cd56621d.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.decdc54f.js"
+    "static/js/main.cd56621d.js"
   ]
 }
