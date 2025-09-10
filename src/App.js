@@ -1,4 +1,4 @@
-import {useState} from "react";
+/*import {useState} from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./utils/Themes";
 import Sidebar from "./components/Sidebar";
@@ -59,6 +59,65 @@ function App() {
       </Frame>
     </Container>
     </BrowserRouter>
+    </ThemeProvider>
+  );
+}
+
+export default App;
+*/
+
+import React from 'react';
+import styled, { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./utils/Themes";
+import Sidebar from "./components/Sidebar";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Dashboard from "./pages/Dashboard";
+import ArchitectureInfo from "./pages/ArchitectureInfo";
+
+const Container = styled.div`
+  display: flex;
+  background: ${({ theme }) => theme.bgLight};
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+`;
+
+const Frame = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+`;
+
+function App() {
+  const [darkMode, setDarkMode] = React.useState(true);
+  const [menuOpen, setMenuOpen] = React.useState(true);
+
+  return (
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <BrowserRouter>
+        <Container>
+          {menuOpen && (
+            <Sidebar
+              menuOpen={menuOpen}
+              setMenuOpen={setMenuOpen}
+              setDarkMode={setDarkMode}
+              darkMode={darkMode}
+            />
+          )}
+          <Frame>
+            <NavBar
+              menuOpen={menuOpen}
+              setMenuOpen={setMenuOpen}
+            />
+            <Routes>
+              <Route path="/" exact element={<Dashboard />} />
+              <Route path="/architecture/:type" exact element={<ArchitectureInfo />} />
+            </Routes>
+          </Frame>
+        </Container>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

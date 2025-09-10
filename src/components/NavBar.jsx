@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import styled from "styled-components";
 import {Menu, PersonRounded} from "@mui/icons-material";
 import { IconButton } from '@mui/material';
@@ -53,6 +53,55 @@ const NavBar = ({setMenuOpen , menuOpen}) => {
         <PersonRounded/>
         Login
       </ButtonDiv>
+    </NavBarDiv>
+  )
+}
+
+export default NavBar;
+
+*/
+
+import React from 'react';
+import styled from "styled-components";
+import {Menu} from "@mui/icons-material";
+import { IconButton } from '@mui/material';
+
+const NavBarDiv=styled.div`
+    display:flex;
+    justify-content:space-between;
+    padding:16px 40px;
+    align-items:center;
+    color: ${({theme})=>theme.text_primary};
+    gap:30px;
+    background: ${({theme})=>theme.bgLight};
+    box-shadow:0 4px 30px rgba(0,0,0,0.1);
+    backdrop-filter:blur(5.7px);
+    -webkit-backdrop-filter: blur(5.7px);
+    @media (max-width:768px){
+      padding:16px;
+    }
+`;
+
+const Welcome=styled.div`
+    color: ${({theme})=>theme.text_primary};
+    font-size:20px;
+    font-weight: bold;
+`;
+
+const IcoButton=styled(IconButton)`
+    color:${({theme})=>theme.text_secondary} !important;
+`;
+
+const NavBar = ({setMenuOpen , menuOpen}) => {
+  return (
+    <NavBarDiv>
+      <IcoButton onClick={()=>setMenuOpen(!menuOpen)}>
+        <Menu/>
+      </IcoButton>
+      <Welcome>
+        Arquitecturas de Aplicaciones Móviles
+      </Welcome>
+      <div style={{width: "48px"}}></div> {/* Espacio para equilibrar */}
     </NavBarDiv>
   )
 }
