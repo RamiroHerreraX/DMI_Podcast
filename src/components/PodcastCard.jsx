@@ -280,7 +280,7 @@ const PodcastCard = () => {
           incluyendo MVC, MVP, MVVM y Clean Architecture. Este podcast explora sus ventajas, desventajas y casos de uso apropiados.
         </Description>
         <AudioPlayer controls>
-          <source src="/podcast.mp4" type="audio/mpeg" />
+          <source src="/podcast.mp4" type="audio/mp4" />
           Tu navegador no soporta el elemento de audio.
         </AudioPlayer>
       </CardInformation>
